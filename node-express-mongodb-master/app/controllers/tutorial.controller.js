@@ -3,7 +3,7 @@ mongoose.Promise = global.Promise;
 
 
 
-
+// db 정보를 받아와 변수화
 const user  = require("../models/User")(mongoose);
 
 
