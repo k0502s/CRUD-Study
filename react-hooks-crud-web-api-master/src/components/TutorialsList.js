@@ -8,9 +8,33 @@ const TutorialsList = () => {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchTitle, setSearchTitle] = useState("");
 
+
+
+//////////////글 가져오기////////////
+
+
+  //컴포넌트 발생 시작 후 바로 발동
+  //글 리스트 데이터들을 가져오기 위한 빈 배열 생성
   useEffect(() => {
     retrieveTutorials();
   }, []);
+
+
+//서버에서 모든 글 리스트 데이터를 가져오게끔 요청하여 받아온 데이터를 setTutorials함수 인자에
+//담아 set 값에 넣어준다.
+  const retrieveTutorials = () => {
+    TutorialDataService.getAll()
+      .then(response => {
+        setTutorials(response.data);
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+
+
 
 
 
@@ -41,24 +65,9 @@ const TutorialsList = () => {
 
 
 
-
-  const retrieveTutorials = () => {
-    TutorialDataService.getAll()
-      .then(response => {
-        setTutorials(response.data);
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
-
-  const refreshList = () => {
-    retrieveTutorials();
-    setCurrentTutorial(null);
-    setCurrentIndex(-1);
-  };
-
+  //받은 인자를 setCurrentTutorial, setCurrentIndex함수의 인자로 담아주어 state 값을 바꿔준다.
+  //setCurrentIndex는 index을 받아 상황에 따른 css의 변화에 이용하고 setCurrentTutorial는 선택한 state 값을 정해주어
+  //현재 상황의 글 리스트 값을 불러오는데 사용한다.
   const setActiveTutorial = (tutorial, index) => {
     setCurrentTutorial(tutorial);
     setCurrentIndex(index);
@@ -80,6 +89,13 @@ const TutorialsList = () => {
       .catch(e => {
         console.log(e);
       });
+  };
+
+  //state 값들을 초기로 되돌리게 한다.
+  const refreshList = () => {
+    retrieveTutorials();
+    setCurrentTutorial(null);
+    setCurrentIndex(-1);
   };
 
 

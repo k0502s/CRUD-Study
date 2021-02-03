@@ -1,8 +1,8 @@
 
 import axios from 'axios';
 
-const getAll = () => {
-  return axios.get("/api/tutorials");
+const getAll = (params) => {
+  return axios.get("/api/tutorials", {params});
 };
 
 const get = id => {

@@ -1,4 +1,4 @@
-module.exports = mongoose => {
+module.exports = (mongoose, mongoosePaginate) => {
 const userSchema = mongoose.Schema({
 
     title: String,
@@ -14,6 +14,8 @@ userSchema.method("toJSON", function() {
     object.id = _id;
     return object;
   });
+
+  userSchema.plugin(mongoosePaginate);
 
   const Tutorials = mongoose.model('tutorials', userSchema)
   return Tutorials;
